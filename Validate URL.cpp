@@ -3,7 +3,6 @@
 using namespace std;
 int main()
 {
-	//https://www.youtube.com/watch?v=WK0YhfKqdaI&feature=youtu.be
 	string url;
 	string host;
 	
@@ -22,11 +21,6 @@ int main()
 		host = url.substr(found + 2, 15);
 	}
 	cout << "the URL is a YouTube URL  " << endl;
-	
-	
-	
-	
-
 
 	return 0;
 }
