@@ -1,5 +1,6 @@
 #include<iostream>
 #include <string>
+#include <conio.h> // For function getch()
 using namespace std;
 int main()
 {
@@ -12,15 +13,16 @@ int main()
 		size_t found = url.find_first_of("//");
 		host = url.substr(found + 2, 15);
 
-	 while (host != "www.youtube.com")
+	 if (host != "www.youtube.com")
 	{
-		cout << "the URL is NOT a YouTube URL  " << endl;
-		cout << "Please enter a new URL " << endl;
-		cin >> url;
-		size_t found = url.find_first_of("//");
-		host = url.substr(found + 2, 15);
-	}
-	cout << "the URL is a YouTube URL  " << endl;
+		cout << "The URL is NOT a YouTube URL  " << endl;
+		
+	 }
+	 else
+	 {
+		 cout << "Converting..." << endl;
+	 }
+	 _getch();
 
 	return 0;
 }
