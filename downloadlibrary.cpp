@@ -6,8 +6,7 @@ DownloadLibrary::DownloadLibrary(QWidget *parent) :
     ui(new Ui::DownloadLibrary)
 {
     ui->setupUi(this);
-    ui->listWidget->addItem("Hi");
-    ui->listWidget->addItem("H4i");
+
 }
 
 DownloadLibrary::~DownloadLibrary()
