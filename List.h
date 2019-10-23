@@ -1,6 +1,3 @@
-#pragma once
-
-#include <iostream>
 #include <conio.h> // to use getch
 using namespace std;
 #include "String"
@@ -20,6 +17,15 @@ public:
 	void insert(Node** head_ref, string new_data);
 	void deleteItem(Node **head_ref, string key);
 	void printList(Node *node);
+
+	void Convirting(Node *head_ref);
+	void deletFirstItem(Node *node);
+
+	void processConvirting(Node *node);
+
+
+
+
 };
 
 void LinkList::insert(Node** head_ref, string new_data)
@@ -66,7 +72,7 @@ void LinkList::deleteItem(Node **head_ref, string key)
 	Node* prev = *head_ref;
 
 	if (temp == NULL) {
-		cout << "List is empty!" << endl;
+		cout << "List is empty! \n" << endl;
 		return;
 	}
 	// If head node itself holds the key to be deleted 
@@ -76,6 +82,7 @@ void LinkList::deleteItem(Node **head_ref, string key)
 		free(temp);               // free old head 
 		return;
 	}
+
 
 	// Search for the key to be deleted, keep track of the 
 	// previous node as we need to change 'prev->next' 
@@ -91,6 +98,10 @@ void LinkList::deleteItem(Node **head_ref, string key)
 		return;
 	}
 
+	cout << temp->data << " has been deleted successfully \n" << endl;
+
+	
+
 
 	// Unlink the node from linked list 
 	prev->next = temp->next;
@@ -98,12 +109,30 @@ void LinkList::deleteItem(Node **head_ref, string key)
 	free(temp);  // Free memory 
 }
 
+void LinkList::Convirting(Node *head_ref)
+{
+
+
+	// Store head node 
+	Node* temp = head_ref;
+
+	if (temp == NULL) {
+		cout << "List is empty!" << endl;
+		return;
+	}
+	else {
+		cout << temp->data << " is converting " << endl;
+
+	}
+
+}
+
 // This function prints contents of 
 // linked list starting from head  
 void LinkList::printList(Node *node)
 {
 	if (node == NULL) {
-		cout << "List is empty!" << endl;
+		cout << "List is empty! \n" << endl;
 		return;
 	}
 
@@ -112,5 +141,35 @@ void LinkList::printList(Node *node)
 		cout << node->data << " ";
 		node = node->next;
 	}
+	cout << endl << endl;
+}
+
+
+
+void LinkList::deletFirstItem(Node *node)
+{
+	Node* current = node; // Initialize current  
+
+	if (current == NULL) {
+		cout << "All file have been converted successfully \n" << endl;
+		return;
+	}
+	for (int i = 0; i < 10; i++)
+		cout << i << " ";
 	cout << endl;
+
+	cout << current->data << " has been converted successfully \n" << endl;
+	current = current->next;
+}
+
+void LinkList::processConvirting(Node *node) {
+	//int count = 0; // Initialize count  
+	Node* current = node; // Initialize current  
+	while (current != NULL)
+	{
+		Convirting(current);
+		deletFirstItem(current);
+		current = current->next;
+	}
+	//return count;
 }
