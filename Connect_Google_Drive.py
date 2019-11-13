@@ -1,16 +1,4 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-
-"""
-ZetCode PyQt5 tutorial
-
-This example shows a tooltip on
-a window and a button.
-
-Author: Jan Bodnar
-Website: zetcode.com
-Last edited: August 2017
-"""
+"Khaled Abdulla" 
 
 
 from __future__ import print_function
