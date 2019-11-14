@@ -118,8 +118,26 @@ class Auth(GoogleDrive):
         #     print('Files:')
         #     for item in items:
         #         print(u'{0} ({1})'.format(item['name'], item['id']))
+        
+ #  feature to implement in future
+class UploadFile(GoogleDrive):
+
+    def __init__(self):
+        super().__init__()
+
+    # override method
+    #def setGUI(self):
+
+ #feature to implement in future
+ 
+class DownloadFile(GoogleDrive):
+    def __init__(self):
+        super().__init__()
 
 
+    # override method
+   # def setGUI(self):
+        
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
