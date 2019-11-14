@@ -27,6 +27,7 @@ class GoogleDrive(QWidget):
     def __init__(self):
         super().__init__()
         self.setGUI()
+    auth = Auth()
 
 
     def setGUI(self):
@@ -41,7 +42,7 @@ class GoogleDrive(QWidget):
 
         self.setGeometry(300, 300, 300, 200)
         self.setWindowTitle('Tooltips')
-        btn.clicked.connect(self.authri)
+        btn.clicked.connect(self.auth.getAhuth)
 
         if os.path.exists('token.pickle'):
             btn.clicked.connect(self.on_click)
