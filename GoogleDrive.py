@@ -22,7 +22,7 @@ SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
 
 
 
-class Example(QWidget):
+class setGUi(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -114,5 +114,5 @@ class Example(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Example()
+    ex = setGUI()
     sys.exit(app.exec_())
