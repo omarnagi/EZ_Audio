@@ -63,7 +63,6 @@ class GoogleDrive(QWidget):
 
 
     @pyqtSlot()
-
     def of_click(self):
 
         textboxValue = "nooooooo "
@@ -74,10 +73,15 @@ class GoogleDrive(QWidget):
 
 
 
+class Auth(GoogleDrive):
+    def __init__(self):
+        super().__init__()
 
-    @pyqtSlot()
+
+    # override method
+    def setGUI(self):
     
-    def authri(self):
+    def getAuth(self):
 
         """Shows basic usage of the Drive v3 API.
         Prints the names and ids of the first 10 files the user has access to.
@@ -100,13 +104,6 @@ class GoogleDrive(QWidget):
             # Save the credentials for the next run
             with open('token.pickle', 'wb') as token:
                 pickle.dump(creds, token)
-
-
-
-
-
-
-
 
         service = build('drive', 'v3', credentials=creds)
 
