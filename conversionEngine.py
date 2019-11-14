@@ -2,6 +2,7 @@ import time #for sleep functionality
 import subprocess #for system calls
 import os
 import pathlib
+from enum import Enum
 
 class Flags():
 
@@ -10,18 +11,26 @@ class Flags():
     #also restrict filenames to avoid filesystem issues on Windows
     alwaysEnabled = " -4 --restrict-filenames"
 
+    class audioFileFormat (Enum):
+        MP3 = " --audio-format mp3"
+        M4A = " --audio-format m4a"
+        FLAC = " --audio-format flac"
+        
     #These flags/settings can be fleshed out with setter functions
     #Those functions then would be activated by the GUI
-    audioFormat = " --audio-format m4a"
+    audioFormat = audioFileFormat.MP3.value
     writeMetadataToFile = " --add-metadata"
+    audioOnly = " -x"
 
     #default constructor-like function
     def __init__(self):
         Flags.ytdlFlags = "" + Flags.alwaysEnabled
-        if audioFormat != NULL:
-            Flags.ytdlFlags += audioFormat
-        if writeMetaDataToFile != NULL:
-            Flags.ytdlFlags += audioFormat            
+        if Flags.audioFormat is not None:
+            Flags.ytdlFlags += Flags.audioFormat
+        if Flags.writeMetadataToFile is not None:
+            Flags.ytdlFlags += Flags.audioFormat
+        if Flags.audioOnly is not None:
+            Flags.ytdlFlags += Flags.audioOnly
 
     #called by main function
     def obtain ():
@@ -51,6 +60,7 @@ ytdlcliString=( ytdlExecString + ytdlFlagsString + ytdlPathString1
 ytdl_exec = subprocess.run(ytdlcliString)
 
 print(ytdl_exec)
+print(ytdlcliString)
 
 
 
