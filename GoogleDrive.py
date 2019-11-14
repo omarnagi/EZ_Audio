@@ -22,14 +22,14 @@ SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
 
 
 
-class setGUi(QWidget):
+class GoogleDrive(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.initUI()
+        self.setGUI()
 
 
-    def initUI(self):
+    def setGUI(self):
         QToolTip.setFont(QFont('SansSerif', 10))
 
         self.setToolTip('This is a <b>QWidget</b> widget')
@@ -54,6 +54,7 @@ class setGUi(QWidget):
 
 
     @pyqtSlot()
+    
     def authri(self):
 
         """Shows basic usage of the Drive v3 API.
@@ -114,5 +115,5 @@ class setGUi(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = setGUI()
+    ex = GoogleDrive()
     sys.exit(app.exec_())
