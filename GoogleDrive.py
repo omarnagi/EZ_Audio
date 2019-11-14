@@ -49,6 +49,28 @@ class GoogleDrive(QWidget):
             btn.clicked.connect(self.of_click)
 
         self.show()
+        
+    @pyqtSlot()
+
+    def on_click(self):
+
+        textboxValue = "The authri ws secssefual "
+
+        QMessageBox.question(self,  'Message - pythonspot.com', "You typed: " + textboxValue,  QMessageBox.Ok, QMessageBox.Ok)
+
+        self.textbox.setText("")
+
+
+
+    @pyqtSlot()
+
+    def of_click(self):
+
+        textboxValue = "nooooooo "
+
+        QMessageBox.question(self,  'Message - pythonspot.com', "You typed: " + textboxValue,  QMessageBox.Ok, QMessageBox.Ok)
+
+        self.textbox.setText("")
 
 
 
@@ -100,17 +122,6 @@ class GoogleDrive(QWidget):
         #     for item in items:
         #         print(u'{0} ({1})'.format(item['name'], item['id']))
 
-    @pyqtSlot()
-    def on_click(self):
-        textboxValue = "The authri ws secssefual "
-        QMessageBox.question(self,  'Message - pythonspot.com', "You typed: " + textboxValue,  QMessageBox.Ok, QMessageBox.Ok)
-        self.textbox.setText("")
-
-    @pyqtSlot()
-    def of_click(self):
-        textboxValue = "nooooooo "
-        QMessageBox.question(self,  'Message - pythonspot.com', "You typed: " + textboxValue,  QMessageBox.Ok, QMessageBox.Ok)
-        self.textbox.setText("")
 
 
 if __name__ == '__main__':
