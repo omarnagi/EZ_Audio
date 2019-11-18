@@ -4,8 +4,9 @@ import pathlib
 
 
 class ytdlFlags():  
-    alwaysEnabledFlags = "-4 --restrict-filenames -x --ffmpeg-location "
-    flagString = ""  + alwaysEnabledFlags
+    alwaysEnabledFlags = " -4 --restrict-filenames -x --ffmpeg-location "
+    audioQuality = " --audio-quality 5"
+    flagString = ""  + audioQuality + alwaysEnabledFlags
 
 currentDir = pathlib.PureWindowsPath(__file__).parent
 currentDir = currentDir.as_posix()
