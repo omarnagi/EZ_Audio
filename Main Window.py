@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from downloadlibrary import Ui_DownloadLibrary
+import conversionEngine
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -85,11 +86,10 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     def changeError(self):
-        self.currentError="You haven't entered a URL yet!"
-        if self.defaultURL!="Enter URL Here...":
-            self.currentError = "Wrong URL!"
         _translate = QtCore.QCoreApplication.translate
-        self.ErrorBox.setText(_translate("MainWindow", self.currentError))
+        self.ErrorBox.setText(_translate("MainWindow", "Hold on..."))
+        conversionEngine.ytdlExec("https://www.youtube.com/watch?v=tbNlMtqrYS0")
+        self.ErrorBox.setText(_translate("MainWindow", "Your download is done!"))
 
     def openLibrary(self):
         self.window=QtWidgets.QMainWindow()
