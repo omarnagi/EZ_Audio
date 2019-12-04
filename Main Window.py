@@ -186,7 +186,8 @@ class Ui_MainWindow(object):
         self.inputURL = self.URLBox.text()
         _translate = QtCore.QCoreApplication.translate
         self.ErrorBox.setText(_translate("MainWindow", "Hold on..."))
-        conversionEngine.ytdlExec(self.inputURL)
+        conversionEngine.converter.transcodeURL(self.inputURL)
+
         self.ErrorBox.setText(_translate("MainWindow", "Download done!"))
 
     def openLibrary(self):
