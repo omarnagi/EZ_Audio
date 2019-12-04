@@ -1,4 +1,7 @@
 # EZ_Audio
+
+![EZ Audio - Logo](/images/EZ_audio_logo.png)
+
 4111 project for team 3
 
 Now using Python for a desktop application for Windows 10
