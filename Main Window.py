@@ -12,7 +12,7 @@ class Ui_MainWindow(object):
         self.defaultError = "Welcome to EZ Audio! Expand your audio library by entering a valid Youtube URL above."
         self.defaultURL = "Enter URL Here..."
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(401, 415)
+        MainWindow.resize(401, 500)
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI Semilight")
         font.setPointSize(9)
@@ -130,22 +130,63 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.convert_Button = QPushButton('convert', MainWindow)
-        self.convert_Button.resize(100, 49)
-        self.convert_Button.move(2450, 200)
-        self.convert_Button.setStyleSheet("background-color: white;")
+        self.formatCombo = QtWidgets.QComboBox(self.centralwidget)
+        self.formatCombo.setGeometry(QtCore.QRect(19, 190, 70, 20))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(15)
+        sizePolicy.setVerticalStretch(32)
+        sizePolicy.setHeightForWidth(self.formatCombo.sizePolicy().hasHeightForWidth())
+        self.formatCombo.setSizePolicy(sizePolicy)
+        self.formatCombo.setMinimumSize(QtCore.QSize(70, 25))
+        self.formatCombo.setMaximumSize(QtCore.QSize(70, 25))
+        self.formatCombo.setStyleSheet("background-color: rgb(168, 168, 168);")
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI Semilight")
+        self.formatCombo.setFont(font)
+        self.formatCombo.setObjectName("formatCombo")
+        self.formatCombo.addItem("")
+        self.formatCombo.addItem("")
+        self.bitRateCombo = QtWidgets.QComboBox(self.centralwidget)
+        self.bitRateCombo.setGeometry(QtCore.QRect(100, 190, 70, 20))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(15)
+        sizePolicy.setVerticalStretch(32)
+        sizePolicy.setHeightForWidth(self.bitRateCombo.sizePolicy().hasHeightForWidth())
+        self.bitRateCombo.setSizePolicy(sizePolicy)
+        self.bitRateCombo.setMinimumSize(QtCore.QSize(70, 25))
+        self.bitRateCombo.setMaximumSize(QtCore.QSize(70, 25))
+        self.bitRateCombo.setStyleSheet("background-color: rgb(168, 168, 168);")
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI Semilight")
+        self.bitRateCombo.setFont(font)
+        self.bitRateCombo.setObjectName("bitRateCombo")
+        self.bitRateCombo.addItem("")
+        self.bitRateCombo.addItem("")
+        self.bitRateCombo.addItem("")
+
+        self.convert_Button = QPushButton('Convert', MainWindow)
+        font = QtGui.QFont()
+        font.setFamily("Bookman Old Style")
+        font.setPointSize(10)
+        font.setUnderline(False)
+        self.convert_Button.setFont(font)
+        self.convert_Button.setStyleSheet("color: rgb(255, 255, 255);\n" "background-color: rgb(103, 103, 103);")
+        self.convert_Button.resize(100, 25)
+        self.convert_Button.move(282, 190)
+
 
         self.initUI()
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
+
     def changeError(self):
         self.inputURL = self.URLBox.text()
         _translate = QtCore.QCoreApplication.translate
         self.ErrorBox.setText(_translate("MainWindow", "Hold on..."))
-        cdi = conversionEngine.converter()
-        cdi.transcodeURL(self.inputURL)
+        conversionEngine.ytdlExec(self.inputURL)
         self.ErrorBox.setText(_translate("MainWindow", "Download done!"))
 
     def openLibrary(self):
@@ -164,11 +205,17 @@ class Ui_MainWindow(object):
         self.EZAudioLogo.setText(_translate("MainWindow", "<html><head/><body><p>EZ Audio</p><p><span style=\" font-size:11pt;\">Made by Yousif, Omar, Jack, and Khaled</span></p></body></html>"))
         self.LibraryButton.setText(_translate("MainWindow", "Library"))
         self.QueueButton.setText(_translate("MainWindow", "Cloud"))
-        self.ConvertButton.setText(_translate("MainWindow", "AddUrl"))
+        self.ConvertButton.setText(_translate("MainWindow", "Add Url"))
         # self.ErrorBox.setText(_translate("MainWindow", self.defaultError))
         # self.ConvertButton.clicked.connect(self.changeError)
         self.ConvertButton.clicked.connect(self.addUrl)
         self.URL_List.clicked.connect(self.removeURL)
+
+        self.formatCombo.setItemText(0, _translate("MainWindow", "mp3"))
+        self.formatCombo.setItemText(1, _translate("MainWindow", "m4a"))
+        self.bitRateCombo.setItemText(0, _translate("MainWindow", "48"))
+        self.bitRateCombo.setItemText(1, _translate("MainWindow", "96"))
+        self.bitRateCombo.setItemText(2, _translate("MainWindow", "128"))
 
         self.convert_Button.clicked.connect(self.covertURL)
 
@@ -178,16 +225,19 @@ class Ui_MainWindow(object):
     @pyqtSlot()
     def initUI(self):
         self.textbox = QLineEdit(MainWindow)
-        self.textbox.move(1000, 200)
-        self.textbox.resize(700, 200)
-        self.textbox.setStyleSheet("background-color: red;")
-        self.textbox.setText("To delete a URL double click on it")
+        self.textbox.move(19, 460)
+        self.textbox.resize(200, 20)
+        self.textbox.setStyleSheet("background-color: rgb(168, 168, 168);")
+        self.textbox.setText("(To delete a URL double click on it)")
+        font = QtGui.QFont()
+        font.setFamily("Leelawadee UI Semilight")
+        self.textbox.setFont(font)
         #self.textbox.fornt.setPointSize(50)
 
         self.URL_List = QListWidget(MainWindow)
-        self.URL_List.move(1000, 350)
-        self.URL_List.resize(700, 1500)
-        self.URL_List.setStyleSheet("""QListWidget{ background: white; }""")
+        self.URL_List.move(19, 230)
+        self.URL_List.resize(350, 220)
+        self.URL_List.setStyleSheet("""QListWidget{ background: rgb(168, 168, 168); }""")
 
     def addUrl(self):
         textboxValue = self.URLBox.text()
@@ -225,10 +275,9 @@ class Ui_MainWindow(object):
             while index is not None:
                 print(self.URL_List.item(0).text())
                 self.inputURL = self.URL_List.item(0).text()
-                ci = conversionEngine.converter()
-                ci.setAudioFormat("mp3")
-                fo = ci.setAudioQuality("228k")
-                ci.transcodeURL(self.inputURL)
+                x = str(self.formatCombo.currentText())
+                y = int(self.bitRateCombo.currentText())
+                conversionEngine.ytdlExec(self.inputURL, y, x)
                 self.URL_List.takeItem(0)
                 index = self.URL_List.item(0)
             QMessageBox(MainWindow).question(MainWindow, 'Message', "All url have been converted ",
