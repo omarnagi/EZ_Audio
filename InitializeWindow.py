@@ -28,30 +28,30 @@ class Window(QMainWindow):
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.setStyleSheet("background-color: gray;")
 
-        # Create textbox
-        self.textbox = QLineEdit(self)
-        self.textbox.move(20, 20)
-        self.textbox.resize(280, 40)
-        self.textbox.setStyleSheet("background-color: white;")
-
-        # Create a button in the window
-        self.add_URL_button = QPushButton('Add URL', self)
-        self.add_URL_button.move(20, 80)
-        self.add_URL_button.resize(289, 49)
-        self.add_URL_button.setStyleSheet("background-color: white;")
-
-        # self.textboxValue1 = "ssss"
-        # self.adding = AddingURL()
-        # self.adding.addUrl(self.textboxValue1, self.URL_List)
-        #self.add_URL_button.clicked.connect(self.adding.addUrl("ddj"))
-
-        self.add_URL_button.clicked.connect(self.addUrl)
-
-
-        self.URL_List = QListWidget(self)
-        self.URL_List.move(0, 200)
-        self.URL_List.resize(700, 1000)
-        self.URL_List.setStyleSheet("""QListWidget{ background: white; }""")
+        # # Create textbox
+        # self.textbox = QLineEdit(self)
+        # self.textbox.move(20, 20)
+        # self.textbox.resize(280, 40)
+        # self.textbox.setStyleSheet("background-color: white;")
+        #
+        # # Create a button in the window
+        # self.add_URL_button = QPushButton('Add URL', self)
+        # self.add_URL_button.move(20, 80)
+        # self.add_URL_button.resize(289, 49)
+        # self.add_URL_button.setStyleSheet("background-color: white;")
+        #
+        # # self.textboxValue1 = "ssss"
+        # # self.adding = AddingURL()
+        # # self.adding.addUrl(self.textboxValue1, self.URL_List)
+        # #self.add_URL_button.clicked.connect(self.adding.addUrl("ddj"))
+        #
+        # self.add_URL_button.clicked.connect(self.addUrl)
+        #
+        #
+        # self.URL_List = QListWidget(self)
+        # self.URL_List.move(0, 200)
+        # self.URL_List.resize(700, 1000)
+        # self.URL_List.setStyleSheet("""QListWidget{ background: white; }""")
         # self.URL_List.
 
 
@@ -91,29 +91,49 @@ class Window(QMainWindow):
         self.out = SigningOut()
         self.Sign_Out_button.clicked.connect(self.out.signOut)
 
-        self.URL_List.clicked.connect(self.removeURL)
+        # self.convert_Button = QPushButton('concert', self)
+        # self.convert_Button.resize(289, 49)
+        # self.convert_Button.move(500, 100)
+        # self.convert_Button.setStyleSheet("background-color: white;")
 
-    def addUrl(self):
-        textboxValue = self.textbox.text()
-        subString = textboxValue[0:23]
-        print(subString)
+        # self.out = SigningOut()
+    #     self.conver.clicked.connect(self.converting)
+    #
+    #     self.URL_List.clicked.connect(self.removeURL)
+    #
+    # def addUrl(self):
+    #     textboxValue = self.textbox.text()
+    #     subString = textboxValue[0:23]
+    #     # print(subString)
+    #
+    #     if subString == "https://www.youtube.com":
+    #         self.URL_List.addItem(textboxValue)
+    #     else:
+    #         QMessageBox.question(self, 'Error', "The Url you entered is not a valid ", QMessageBox.Ok,
+    #                              QMessageBox.Ok)
+    #
+    #
+    # def removeURL(self):
+    #     index = self.URL_List.row(self.URL_List.currentItem())
+    #
+    #     buttonReply = QMessageBox.question(self, 'Message', "Do you want to delete?",
+    #                                        QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+    #     if buttonReply == QMessageBox.Yes:
+    #         self.URL_List.takeItem(index)
+    #     else:
+    #         return
+    #
+    # def conerting(self):
+    #
+    #     index = self.URL_List.item(1)
+    #     #print (index)
+    #
+    #     while index is not None:
+    #         print(self.URL_List.item(0).text())
+    #         self.URL_List.takeItem(0)
+    #         index = self.URL_List.item(0)
 
-        if subString == "https://www.youtube.com":
-            self.URL_List.addItem(textboxValue)
-        else:
-            QMessageBox.question(self, 'Error', "The Url you entered is not a valid ", QMessageBox.Ok,
-                                 QMessageBox.Ok)
 
-
-    def removeURL(self):
-        index = self.URL_List.row(self.URL_List.currentItem())
-
-        buttonReply = QMessageBox.question(self, 'Message', "Do you want to delete?",
-                                           QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        if buttonReply == QMessageBox.Yes:
-            self.URL_List.takeItem(index)
-        else:
-            return
 
 
 
