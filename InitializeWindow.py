@@ -80,8 +80,8 @@ class Window(QMainWindow):
         self.Upload_button.setStyleSheet("background-color: white;")
 
 
-        self.upload = UploadingFile()
-        self.Upload_button.clicked.connect(self.upload.uploadFile)
+        # self.upload = UploadingFile()
+        # self.Upload_button.clicked.connect(self.upload.uploadFile)
 
         self.Sign_Out_button = QPushButton('Sign out', self)
         self.Sign_Out_button.resize(289, 49)
