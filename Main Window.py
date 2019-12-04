@@ -1,6 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from downloadlibrary import Ui_DownloadLibrary
-import Sorting_Name_Date_Channel as sort
+from InitializeWindow import Window
+from Sorting_Name_Date_Channel import  List
+import conversionEngine
+
+from PyQt5.QtWidgets import QMainWindow, QLineEdit, QPushButton, QListWidget,QMessageBox
+from PyQt5.QtCore import pyqtSlot
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -102,17 +107,17 @@ class Ui_MainWindow(object):
         self.ErrorBox.setMinimumSize(QtCore.QSize(361, 61))
         font = QtGui.QFont()
         font.setFamily("Leelawadee UI Semilight")
-        self.ErrorBox.setFont(font)
-        self.ErrorBox.setStyleSheet("background-color: rgb(168, 168, 168);")
-        self.ErrorBox.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.ErrorBox.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.ErrorBox.setLineWidth(0)
-        self.ErrorBox.setMidLineWidth(0)
-        self.ErrorBox.setTextFormat(QtCore.Qt.AutoText)
-        self.ErrorBox.setScaledContents(False)
-        self.ErrorBox.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.ErrorBox.setWordWrap(True)
-        self.ErrorBox.setObjectName("ErrorBox")
+        # self.ErrorBox.setFont(font)
+        # self.ErrorBox.setStyleSheet("background-color: rgb(168, 168, 168);")
+        # self.ErrorBox.setFrameShape(QtWidgets.QFrame.NoFrame)
+        # self.ErrorBox.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.ErrorBox.setLineWidth(0)
+        # self.ErrorBox.setMidLineWidth(0)
+        # self.ErrorBox.setTextFormat(QtCore.Qt.AutoText)
+        # self.ErrorBox.setScaledContents(False)
+        # self.ErrorBox.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        # self.ErrorBox.setWordWrap(True)
+        # self.ErrorBox.setObjectName("ErrorBox")
         self.BottomLayout.addWidget(self.ErrorBox)
         self.PrimaryLayout.addLayout(self.BottomLayout)
         self.horizontalLayout_3.addLayout(self.PrimaryLayout)
@@ -125,6 +130,13 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.convert_Button = QPushButton('convert', MainWindow)
+        self.convert_Button.resize(100, 49)
+        self.convert_Button.move(2450, 200)
+        self.convert_Button.setStyleSheet("background-color: white;")
+
+        self.initUI()
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -136,14 +148,13 @@ class Ui_MainWindow(object):
         self.ErrorBox.setText(_translate("MainWindow", "Download done!"))
 
     def openLibrary(self):
-        self.ex = sort.List()
+        self.ex = List()
         self.ex.show()
 
     def openQueue(self): #Cloud Function
-        self.window=QtWidgets.QMainWindow()
-        self.libUI=Ui_DownloadLibrary()
-        self.libUI.setupUi(self.window)
-        self.window.show()
+        self.cal = Window()
+        self.cal.show()
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -152,13 +163,75 @@ class Ui_MainWindow(object):
         self.EZAudioLogo.setText(_translate("MainWindow", "<html><head/><body><p>EZ Audio</p><p><span style=\" font-size:11pt;\">Made by Yousif, Omar, Jack, and Khaled</span></p></body></html>"))
         self.LibraryButton.setText(_translate("MainWindow", "Library"))
         self.QueueButton.setText(_translate("MainWindow", "Cloud"))
-        self.ConvertButton.setText(_translate("MainWindow", "Convert"))
-        self.ErrorBox.setText(_translate("MainWindow", self.defaultError))
-        self.ConvertButton.clicked.connect(self.changeError)
+        self.ConvertButton.setText(_translate("MainWindow", "AddUrl"))
+        # self.ErrorBox.setText(_translate("MainWindow", self.defaultError))
+        # self.ConvertButton.clicked.connect(self.changeError)
+        self.ConvertButton.clicked.connect(self.addUrl)
+        self.URL_List.clicked.connect(self.removeURL)
+
+        self.convert_Button.clicked.connect(self.covertURL)
+
         self.LibraryButton.clicked.connect(self.openLibrary)
         self.QueueButton.clicked.connect(self.openQueue)
 
+    @pyqtSlot()
+    def initUI(self):
+        self.textbox = QLineEdit(MainWindow)
+        self.textbox.move(1000, 200)
+        self.textbox.resize(700, 200)
+        self.textbox.setStyleSheet("background-color: red;")
+        self.textbox.setText("To delete a URL double click on it")
+        #self.textbox.fornt.setPointSize(50)
 
+        self.URL_List = QListWidget(MainWindow)
+        self.URL_List.move(1000, 350)
+        self.URL_List.resize(700, 1500)
+        self.URL_List.setStyleSheet("""QListWidget{ background: white; }""")
+
+    def addUrl(self):
+        textboxValue = self.URLBox.text()
+        subString = textboxValue[0:23]
+        print(subString)
+
+        if subString == "https://www.youtube.com":
+            self.URL_List.addItem(textboxValue)
+        else:
+            # self.message = QMessageBox(MainWindow)
+            QMessageBox(MainWindow).question(MainWindow, 'Error', "The Url you entered is not a valid ",
+                                             QMessageBox.Ok,
+                                             QMessageBox.Ok)
+            print(subString)
+
+
+    def removeURL(self):
+        index = self.URL_List.row(self.URL_List.currentItem())
+
+        buttonReply = QMessageBox(MainWindow).question(MainWindow, 'Message', "Do you want to delete?",
+                                           QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if buttonReply == QMessageBox.Yes:
+            self.URL_List.takeItem(index)
+        else:
+            return
+
+    def covertURL(self):
+
+        index = self.URL_List.item(0)
+        if index is None:
+            QMessageBox(MainWindow).question(MainWindow, 'Message', "No Url to convert ",
+                                             QMessageBox.Ok,
+                                             QMessageBox.Ok)
+        else:
+            while index is not None:
+                print(self.URL_List.item(0).text())
+                self.inputURL = self.URL_List.item(0).text()
+                conversionEngine.ytdlExec(self.inputURL)
+                self.URL_List.takeItem(0)
+                index = self.URL_List.item(0)
+            QMessageBox(MainWindow).question(MainWindow, 'Message', "All url have been converted ",
+                                         QMessageBox.Ok,
+                                         QMessageBox.Ok)
+
+    # def converting(self):
 
 if __name__ == "__main__":
     import sys
