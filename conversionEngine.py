@@ -22,13 +22,13 @@ class converter:
     #performs input validation then calls private class
     def setAudioFormat(self, format):
         if format == "mp3":
-            self.settingsInstance.setAudioFormat("mp3")
+            self.settingsInstance.setAF("mp3")
         elif format == "m4a":
-            self.settingsInstance.setAudioFormat("m4a")
+            self.settingsInstance.setAF("m4a")
         elif format == "flac":
-            self.settingsInstance.setAudioFormat("mp3")
+            self.settingsInstance.setAF("mp3")
         elif format == "opus":
-            self.settingsInstance.setAudioFormat("opus")
+            self.settingsInstance.setAF("opus")
         else:
             return False
         return True
@@ -45,20 +45,20 @@ class converter:
         elif (bps < 32):
             return False
         else:
-            self.settingsInstance.setAudioQuality(bitrate)
+            self.settingsInstance.setAQ(bitrate)
             return True
 
     def transcodeURL(self, url):
-        print(self.settingsInstance.assembleString(url))
+        self.settingsInstance.assembleString(url)
 
     
 class convSettings:
-    alwaysEnabledFlags = " -4 --restrict-filenames -x"
+    alwaysEnabledFlags = " -4 --restrict-filenames -x" 
 
     def __init__(self): #default values
         self.settings = self.alwaysEnabledFlags
-        self.audioFormatString = self.setAudioFormat()
-        self.audioQualityString = self.setAudioQuality()
+        self.audioFormatString = self.setAF("128k")
+        self.audioQualityString = self.setAQ("mp3")
 
     def directoryLocation(self, curDir):
         self.settings = self.alwaysEnabledFlags + " --ffmpeg-location " \
@@ -66,7 +66,7 @@ class convSettings:
         self.currentDirectory = curDir
         
     ##below two functions store the formatted string and bitrate of conversion as local vars        
-    def setAudioFormat(self, aformat = None):
+    def setAF(self, aformat = None):
         if aformat is None:
             self.audioFormat = ""
             self.audioFormatString = " "
@@ -74,7 +74,7 @@ class convSettings:
             self.audioFormat = aformat
             self.audioFormatString = " --audio-format " + str(aformat)
             
-    def setAudioQuality(self, bitrate = None):
+    def setAQ(self, bitrate = None):
         if bitrate is None:
             self.audioQuality = ""
             self.audioQualityString = " "
@@ -87,7 +87,7 @@ class convSettings:
                    #+ "/%(title)s.%(ext)s\" "
         ext =  " /%(title)s.%(ext)s\" "
         s = "youtube-dl.exe" + self.settings + self.audioFormatString \
-            + " " + url + ".%(ext)s\" "
+            + " " + url + ".%(ext)s\" " + ""
         exec = subprocess.run(s)
         return exec
     

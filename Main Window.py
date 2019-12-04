@@ -144,7 +144,8 @@ class Ui_MainWindow(object):
         self.inputURL = self.URLBox.text()
         _translate = QtCore.QCoreApplication.translate
         self.ErrorBox.setText(_translate("MainWindow", "Hold on..."))
-        conversionEngine.ytdlExec(self.inputURL)
+        cdi = conversionEngine.converter()
+        cdi.transcodeURL(self.inputURL)
         self.ErrorBox.setText(_translate("MainWindow", "Download done!"))
 
     def openLibrary(self):
@@ -224,7 +225,10 @@ class Ui_MainWindow(object):
             while index is not None:
                 print(self.URL_List.item(0).text())
                 self.inputURL = self.URL_List.item(0).text()
-                conversionEngine.ytdlExec(self.inputURL)
+                ci = conversionEngine.converter()
+                ci.setAudioFormat("mp3")
+                fo = ci.setAudioQuality("228k")
+                ci.transcodeURL(self.inputURL)
                 self.URL_List.takeItem(0)
                 index = self.URL_List.item(0)
             QMessageBox(MainWindow).question(MainWindow, 'Message', "All url have been converted ",
